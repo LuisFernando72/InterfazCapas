@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
+    <head>
+      <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    </head>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+      crossorigin="anonymous"
+    ></script>
+    <link href="{{url_for('static', filename='css/style.css')}}" />
+    <script src="{{url_for('static', filename='lib/jQuery3.js')}}"></script>
+  </head>
+  <body>
+    <h4 class="text-center mt-5 mb-5 text-primary">USUARIOS</h4>
+
+    <div class="container p-3">
+      <div class="card shadow p-4">
+        <div class="card-body">
+          <div class="mb-2">
+            <button
+              data-bs-toggle="modal"
+              data-bs-target="#modal2"
+              class="btn btn-success btn-lg"
+            >
+              Agregar
+            </button>
+          </div>
+          <!-- Tabla -->
+    
+          <div class="container-sm table-responsive-md tabla-con-scroll">
+            <table
+              id="dtHorizontalVerticalExample"
+              class="table table-fixed"
+              cellspacing="0"
+              width="100%"
+            >
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Nombres</th>
+                  <th>Apellidos</th>
+                  <th>Password</th>
+                  <th>Fecha Creacion</th>
+                  <th>Editar</th>
+                  <th>Borrar</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {%for t in tabla %}
+                <tr>
+                  <td>{{loop.index }}</td>
+                  <td>{{t["nombres"]}}</td>
+                  <td>{{t["apellidos"]}}</td>
+                  <td>Encrypt</td>
+                  <td>{{t["fecha"]}}</td>
+                  <td>
+                    <button class="btn btn-primary btn-sm"
+                    data-bs-toggle="modal"
+                    data-bs-target="#modal"
+                    value ="{{t['id']}}"
+                    id="casa1">Editar</button>
+                  
+                  </td>
+                  
+                  <td>
+
+                    <form action="/eliminar" method="post">
+                    <input type="hidden" name="id3" value="{{t['id']}}">
+                    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                    </form>
+                  </td>
+
+                </tr>
+                {% endfor%}
+                <!-- ventana modal -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL AGREGAR -->
+    <div
+      class="modal fade"
+      id="modal2"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel2"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel2">
+              Agregar Usuario
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body">
+            <form action="/crear" method="post">
+              <div class="">
+                <div class="mb">
+                  <label class="form-label">Nombres</label>
+                  <input type="text" class="form-control" name="name" id="name" />
+                </div>
+                <div class="mb">
+                  <label class="form-label">Apellidos</label>
+                  <input type="text" class="form-control" name="apellidos" id="apellidos" />
+                </div>
+
+                <div class="mb">
+                  <label class="form-label">Password</label>
+                  <input type="password" class="form-control" name="password" id="password" />
+                </div>
+                <br />
+
+                <div class="mb-3">
+                  <button type="submit" id="insertar" class="btn btn-primary">Guardar</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL EDITAR -->
+    <div
+      class="modal fade"
+      id="modal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">
+              Actualizar Usuario
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body">
+            <form action="/actualizar" method="post">
+            <input type="hidden" name="id2" id="id2">
+              <label>Nombre</label>
+              <input
+                type="text"
+                class="form-control mb-3"
+                name="name2"
+                id= "name2"
+                value=""
+              />
+
+              <label>Apellidos</label>
+              <input
+                type="text"
+                class="form-control mb-3"
+                name="apellidos2"
+                id = "apellidos2"
+                value=""
+              />
+
+              <label>Password</label>
+              <input
+                type="text"
+                class="form-control mb-3"
+                name="password2"
+                id = "password2"
+                value=""
+              />
+
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">
+                  Guardar Cambios
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="{{url_for('static', filename='js/main.js')}}"></script>
+  
+  </body>
+</html>

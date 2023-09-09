@@ -1,0 +1,26 @@
+.table-fixed {
+  width: 100%;
+  background-color: #f3f3f3;
+}
+
+
+.tabla-con-scroll {
+  width: 300px; /* Establece el ancho máximo de la tabla */
+  height: 200px; /* Establece la altura máxima de la tabla */
+  overflow: auto; /* Agrega una barra de desplazamiento si es necesario */
+}
+
+  tbody {
+  height: 200px;
+  overflow-y: auto;
+  width: 100%;
+}
+
+ 
+
+thead tr th {
+  float: left;
+  background-color: #f39c12;
+  border-color: #e67e22;
+
+}
